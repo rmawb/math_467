@@ -84,14 +84,14 @@ def gauss_legendre3(f, a, b, n):
 
 #Set function and bounds here
 f = lambda x: np.exp(x)
-l_bound = 0
-u_bound = 20
+l_bound = 1
+u_bound = 5
 
 #set exact integral here:
 f_exact = lambda x: np.exp(x)
 exact = f_exact(u_bound) - f_exact(l_bound)
 
-n = [2*i for i in range(1,20)]
+n = [10**i for i in range(1,6)]
 trapezoid = []
 gauss2 = []
 gauss3 = []
@@ -99,12 +99,10 @@ for x in n:
     trapezoid.append(abs(trap(f, l_bound, u_bound, x) - exact))
     gauss2.append(abs(gauss_legendre2(f, l_bound, u_bound, x) - exact))
     gauss3.append(abs(gauss_legendre3(f, l_bound, u_bound, x) - exact))
-print(trapezoid)
-print(gauss2)
-print(gauss3)
 
-plt.plot(n, trapezoid, label = 'trap')
-plt.plot(n, gauss2, label = 'gauss2')
-plt.plot(n, gauss3, label = 'gauss3')
+plt.loglog(n, trapezoid, label = 'trap')
+plt.loglog(n, gauss2, label = 'gauss2')
+plt.loglog(n, gauss3, label = 'gauss3')
+plt.grid()
 plt.legend()
 plt.show()
